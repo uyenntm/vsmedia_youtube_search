@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>		
+        <title>Your awesome Youtube search engine</title>
+        <meta charset="UTF-8" />					
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Awesome videos!" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div>
+            <h1>Getting Started With Fetch API</h1>
+            <button id="fetchUserDataBtn">Fetch User Data</button>
+        </div>
+        <hr>
+        <div id="response"></div>
+        <script>
+            document.getElementById('fetchUserDataBtn').addEventListener('click', fetchUserData);
+        
+            function fetchUserData(){
+                fetch('https://jsonplaceholder.typicode.com/users/')
+                .then(response => response.json())
+                .then(users => {
+                    let output = '<h2>Lists of Users</h2>';
+                    output += '<ul>';
+                    users.forEach(function(user) {
+                        output += `
+                            <li>
+                                ${user.name}
+                            </li>
+                        `;
+                    });
+                    output += '</ul>'
+                    document.getElementById("response").innerHTML = output;
+                });
+            }
+        </script>
+    </body>
+</html>
