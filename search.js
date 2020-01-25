@@ -6,6 +6,7 @@
 const PART = "snippet";
 const MAX_RESULTS = 10;
 const API_KEY = "AIzaSyA3kt3hajtVT7PaBoIQczEyyM0WP0T1e4c";
+//const API_KEY = "----";
 const TPL = 'tpl/list_item.html';
 //-------
 
@@ -39,8 +40,6 @@ function onYouTubeApiLoad() {
 function search() {
   var query = document.getElementById("query").value;
 
-//   var order = document.getElementById("order").value;
-//   console.log("order:", order);
   // Use the JavaScript client library to create a search.list() API call.
   var request = gapi.client.youtube.search.list({
     part: PART,
@@ -50,7 +49,7 @@ function search() {
     maxResults: MAX_RESULTS
   });
   //reset result
-  document.getElementById("results").innerHTML = '';
+  document.getElementById("errors").innerHTML = '';
   document.getElementById("list_result").innerHTML = '';
   // Send the request to the API server, call the onSearchResponse function when the data is returned
   request.execute(onSearchResponse);
@@ -61,7 +60,8 @@ function onSearchResponse(response) {
   console.log(response.result);
   let video_ids = [];
   if ('error' in response) {
-    document.getElementById("list_result").innerHTML =response.error.message;
+    document.getElementById("errors").innerHTML ="Error: "+response.error.code+ " " + response.error.message;
+    return;
   } 
   else{
     response.result.items.forEach(item => {
@@ -84,7 +84,8 @@ function onSearchResponse(response) {
   request_list.execute(function(response) {
     console.log(response);
     if ('error' in response) {
-        document.getElementById("list_result").innerHTML =response.error.code + response.error.message;
+        document.getElementById("errors").innerHTML = "Error: "+response.error.code+ " " + response.error.message;
+        return
       } 
       else{
             var i = 1;
