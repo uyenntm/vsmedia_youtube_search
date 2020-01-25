@@ -10,46 +10,10 @@ const TPL = 'tpl/list_item.html';
 //-------
 
 //----Utility----
-// // If number is a single digit, prepend a '0'. Otherwise, return the number
-//   //  as a string.
-//   function padToTwoCharacters(number) {
-//     if (number < 10) {
-//       return '0' + number;
-//     } else {
-//       return number.toString();
-//     }
-//   }
-// function formatDateString(date) {
-//     var yyyy = date.getFullYear().toString();
-//     var mm = padToTwoCharacters(date.getMonth() + 1);
-//     var dd = padToTwoCharacters(date.getDate());
 
-//     return yyyy + '-' + mm + '-' + dd;
-//   }
-//replace in template
-function tplawesome(e, t) {
-    res = e;
-    for (var n = 0; n < t.length; n++) {
-      res = res.replace(/\{\{(.*?)\}\}/g, function(e, r) {
-        return t[n][r];
-      });
-    }
-    return res;
-  }
-
-  //get file
-function get_file(url, callback)
-{
-    xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET", url, true);
-    xmlhttp.onreadystatechange = function()
-    {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-        {
-            callback(xmlhttp.response);
-        }
-    }
-    xmlhttp.send();
+//display number with comma
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 //render result list
 function renderResult(index,id, title,date,viewCount ){
@@ -125,13 +89,89 @@ function onSearchResponse(response) {
       else{
             var i = 1;
             console.log("items:",response.result.items);
+            
+
             response.result.items.forEach(item=>{
                 //bind item data
                 console.log("item:",i,  item);
                 document.getElementById("list_result").innerHTML +=renderResult(i,item.id,item.snippet.title,item.snippet.publishedAt,item.statistics.viewCount);
                 i ++;
             })
+            
       }
   });
   
 }
+
+function sortTable(n, type="string") {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+    //Set the sorting direction to ascending:
+    dir = "asc"; 
+    /*Make a loop that will continue until
+    no switching has been done:*/
+    while (switching) {
+      //start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+      /*Loop through all table rows (except the
+      first, which contains table headers):*/
+      for (i = 1; i < (rows.length - 1); i++) {
+        //start by saying there should be no switching:
+        shouldSwitch = false;
+        /*Get the two elements you want to compare,
+        one from current row and one from the next:*/
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /*check if the two rows should switch place,
+        based on the direction, asc or desc:*/
+        if(type == 'string'){
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+        }
+        if(type == 'number'){
+            if (dir == "asc") {
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+        }
+        
+      }
+      if (shouldSwitch) {
+        /*If a switch has been marked, make the switch
+        and mark that a switch has been done:*/
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        //Each time a switch is done, increase this count by 1:
+        switchcount ++;      
+      } else {
+        /*If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again.*/
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
