@@ -36,6 +36,7 @@ function search() {
   //reset result
   document.getElementById("errors").innerHTML = '';
   document.getElementById("list_result").innerHTML = '';
+  VIDEOS = [];
   // Send the request to the API server, call the onSearchResponse function when the data is returned
   request.execute(onSearchResponse);
 }

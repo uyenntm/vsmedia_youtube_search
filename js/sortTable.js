@@ -4,30 +4,24 @@ function sortTable(VIDEOS,col, type="string") {
    let sort_type = getTypeSort(VIDEOS,col);
    console.log('sort_type',sort_type)
    VIDEOS.sort(compareValues(col,sort_type));
+   //reset list result
+   document.getElementById("list_result").innerHTML = '';
   render_list(VIDEOS,document.getElementById("list_result"));
   // console.log('After Sort:');
   // console.log(VIDEOS, col);
   }
 
   function getTypeSort(videos,col){
-    if(videos.length >=3){
+    if(videos.length >=2){
       //isASC = true;
-      if(videos[0][col]<videos[1][col] && videos[1][col]< videos[2][col]){  
+      if(videos[0][col]<videos[videos.length-1][col]){  
         return 'desc';
       }
       else {
         return 'asc';
       }
     }
-    else if (videos.length == 2){
-      //isASC = true;
-      if(videos[0][col]<videos[1][col] ){  
-        return 'desc';
-      }
-      else {
-        return 'asc';
-      }
-    }
+    
     return 'asc';
   }
 

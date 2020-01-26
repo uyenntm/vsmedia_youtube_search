@@ -1,5 +1,6 @@
 function render_list(videos, div){
-    div.innerHTML ='';
+    //reset container
+    div.innerHTML = '';
     videos.forEach(video =>{ 
         //console.log('item', video);
         div.innerHTML +=render(video);
