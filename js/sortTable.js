@@ -19,7 +19,7 @@ function sortTable(VIDEOS,col, type="string") {
         return 'asc';
       }
     }
-    else{
+    else if (videos.length == 2){
       //isASC = true;
       if(videos[0][col]<videos[1][col] ){  
         return 'desc';
@@ -28,9 +28,10 @@ function sortTable(VIDEOS,col, type="string") {
         return 'asc';
       }
     }
+    return 'asc';
   }
 
-  function compareValues(key, order = 'asc') {
+  function compareValues(key, order = 'asc',data_type='string') {
     
     return function innerSort(a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -44,11 +45,21 @@ function sortTable(VIDEOS,col, type="string") {
         ? b[key].toUpperCase() : b[key];
   
       let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
+      if(data_type == 'number'){
+        if (Number(varA) > Number(varB)) {
+          comparison = 1;
+        } else if (Number(varA) < Number(varB)) {
+          comparison = -1;
+        }
       }
+      else{
+        if (varA > varB) {
+          comparison = 1;
+        } else if (varA < varB) {
+          comparison = -1;
+        }
+      }
+      
       return (
         (order === 'desc') ? (comparison * -1) : comparison
       );

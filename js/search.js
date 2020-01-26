@@ -6,20 +6,12 @@
 const PART = "snippet";
 const MAX_RESULTS = 10;
 const API_KEY = "AIzaSyA3kt3hajtVT7PaBoIQczEyyM0WP0T1e4c";
+let VIDEOS = [];
 //const API_KEY = "----";
 //-------
 
 //----Utility----
-//render result list
-function renderResult(index,id, title,date,viewCount ){
-    return '<tr>'+
-    '<td>'+index+'</td>'+
-     '<td>'+id+'</td>'+
-     '<th scope="row">'+title+'</th>'+
-     '<td>'+date+'</td>'+
-     '<td>'+viewCount+'</td>'+
- '</tr>';
-}
+
 
 //End Utility-----
 function onClientLoad() {
@@ -39,7 +31,6 @@ function search() {
     part: PART,
     q: encodeURIComponent(query).replace(/%20/g, "+"),
     type: "video",
-    // order: order,
     maxResults: MAX_RESULTS
   });
   //reset result
@@ -68,7 +59,7 @@ function onSearchResponse(response) {
     });
   }
   
-  console.log("video_ids:",video_ids);
+  //console.log("video_ids:",video_ids);
   
   //create another request with the ressource videos.list
   var request_list = gapi.client.youtube.videos.list({
@@ -83,11 +74,13 @@ function onSearchResponse(response) {
       } 
       else{
             var i = 1;
-            console.log("items:",response.result.items);
+            //console.log("items:",response.result.items);
             response.result.items.forEach(item=>{
-                //bind item data
-                console.log("item:",i,  item);
-                document.getElementById("list_result").innerHTML +=renderResult(i,item.id,item.snippet.title,item.snippet.publishedAt,item.statistics.viewCount);
+                // //bind item data
+                // console.log("item:",i,  item);
+                let video = new Video(i,item.id,item.snippet.title,item.snippet.publishedAt,item.statistics.viewCount);
+                VIDEOS.push(video);
+                document.getElementById("list_result").innerHTML +=render(video);
                 i ++;
             })
             
