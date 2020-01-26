@@ -7,13 +7,8 @@ const PART = "snippet";
 const MAX_RESULTS = 10;
 const API_KEY = "AIzaSyA3kt3hajtVT7PaBoIQczEyyM0WP0T1e4c";
 let VIDEOS = [];
-//const API_KEY = "----";
 //-------
 
-//----Utility----
-
-
-//End Utility-----
 function onClientLoad() {
   gapi.client.load("youtube", "v3", onYouTubeApiLoad);
 }
@@ -34,8 +29,8 @@ function search() {
     maxResults: MAX_RESULTS
   });
   //reset result
-  document.getElementById("errors").innerHTML = '';
-  document.getElementById("list_result").innerHTML = '';
+  document.getElementById("errors").innerHTML = "";
+  document.getElementById("list_result").innerHTML = "";
   VIDEOS = [];
   // Send the request to the API server, call the onSearchResponse function when the data is returned
   request.execute(onSearchResponse);
@@ -45,49 +40,47 @@ function search() {
 function onSearchResponse(response) {
   console.log(response.result);
   let video_ids = [];
-  if ('error' in response) {
-    document.getElementById("errors").innerHTML ="Error: "+response.error.code+ " " + response.error.message;
+  //display errors
+  if ("error" in response) {
+    document.getElementById("errors").innerHTML =
+      "Error: " + response.error.code + " " + response.error.message;
     return;
-  } 
-  else{
+  } else {
     response.result.items.forEach(item => {
-      
-    // check no duplicate
-    if(video_ids.indexOf(item.id.videoId)== -1){
+      // check no duplicate
+      if (video_ids.indexOf(item.id.videoId) == -1) {
         video_ids.push(item.id.videoId);
-    }
-      
+      }
     });
   }
-  
-  //console.log("video_ids:",video_ids);
-  
+
   //create another request with the ressource videos.list
   var request_list = gapi.client.youtube.videos.list({
-    part: 'id,snippet,statistics',
-    id: video_ids.join(',')
+    part: "id,snippet,statistics",
+    id: video_ids.join(",")
   });
+  //execute request_list
   request_list.execute(function(response) {
-    console.log(response);
-    if ('error' in response) {
-        document.getElementById("errors").innerHTML = "Error: "+response.error.code+ " " + response.error.message;
-        return
-      } 
-      else{
-            var i = 1;
-            //console.log("items:",response.result.items);
-            response.result.items.forEach(item=>{
-                // //bind item data
-                // console.log("item:",i,  item);
-                let video = new Video(i,item.id,item.snippet.title,item.snippet.publishedAt,item.statistics.viewCount);
-                VIDEOS.push(video);
-                document.getElementById("list_result").innerHTML +=render(video);
-                i ++;
-            })
-            
-      }
+    //display errors
+    if ("error" in response) {
+      document.getElementById("errors").innerHTML =
+        "Error: " + response.error.code + " " + response.error.message;
+      return;
+    } else {
+      var i = 1;
+      response.result.items.forEach(item => {
+        // //bind item data
+        let video = new Video(
+          i,
+          item.id,
+          item.snippet.title,
+          item.snippet.publishedAt,
+          item.statistics.viewCount
+        );
+        VIDEOS.push(video);
+        document.getElementById("list_result").innerHTML += render(video);
+        i++;
+      });
+    }
   });
-  
 }
-
-

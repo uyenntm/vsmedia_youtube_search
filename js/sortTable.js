@@ -1,14 +1,10 @@
 function sortTable(VIDEOS,col, type="string") {
-  //  console.log('Sort:');
-  //  console.log(VIDEOS[0][col],VIDEOS[1][col],VIDEOS[0][col]>VIDEOS[1][col] );
+
    let sort_type = getTypeSort(VIDEOS,col);
-   console.log('sort_type',sort_type)
    VIDEOS.sort(compareValues(col,sort_type));
    //reset list result
    document.getElementById("list_result").innerHTML = '';
   render_list(VIDEOS,document.getElementById("list_result"));
-  // console.log('After Sort:');
-  // console.log(VIDEOS, col);
   }
 
   function getTypeSort(videos,col){
@@ -21,7 +17,6 @@ function sortTable(VIDEOS,col, type="string") {
         return 'asc';
       }
     }
-    
     return 'asc';
   }
 
