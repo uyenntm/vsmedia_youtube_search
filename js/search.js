@@ -7,15 +7,9 @@ const PART = "snippet";
 const MAX_RESULTS = 10;
 const API_KEY = "AIzaSyA3kt3hajtVT7PaBoIQczEyyM0WP0T1e4c";
 //const API_KEY = "----";
-const TPL = 'tpl/list_item.html';
 //-------
 
 //----Utility----
-
-//display number with comma
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 //render result list
 function renderResult(index,id, title,date,viewCount ){
     return '<tr>'+
@@ -31,7 +25,7 @@ function renderResult(index,id, title,date,viewCount ){
 function onClientLoad() {
   gapi.client.load("youtube", "v3", onYouTubeApiLoad);
 }
-// Called automatically when YouTube API interface is loaded (see line 9).
+// Called automatically when YouTube API interface is loaded
 function onYouTubeApiLoad() {
   gapi.client.setApiKey(API_KEY);
 }
@@ -90,8 +84,6 @@ function onSearchResponse(response) {
       else{
             var i = 1;
             console.log("items:",response.result.items);
-            
-
             response.result.items.forEach(item=>{
                 //bind item data
                 console.log("item:",i,  item);
