@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="/js/search.js" type="text/javascript"></script>
-    <script src="/js/sort.js" type="text/javascript"></script>
+    <script src="/js/searchfake.js" type="text/javascript"></script>
+    <script src="/js/sortfake.js" type="text/javascript"></script>
+    <script src="/js/data.js" type="text/javascript"></script>
+    <script src="/js/render.js" type="text/javascript"></script>
     <script
       src="https://apis.google.com/js/client.js?onload=onClientLoad"
       type="text/javascript"
@@ -32,7 +34,7 @@
         <input
           class="form-control search-input"
           id="query"
-          onchange="search()"
+          onchange="search(VIDEOS)"
           placeholder="Search"
           type="text"
         />
@@ -47,8 +49,8 @@
             <th>#</th>
             <th scope="col" >Video ID</th>
             <th scope="col" >Title</th>
-            <th scope="col" onclick="sortTable(2)">Date</th>
-            <th scope="col" onclick="sortTable(3,'number')">View Count</th>
+            <th scope="col" onclick="sortTable(VIDEOS,'date')">Date</th>
+            <th scope="col" onclick="sortTable(VIDEOS,'viewCount','number')">View Count</th>
           </tr>
         </thead>
         <tbody id="list_result"></tbody>
