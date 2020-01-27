@@ -59,6 +59,11 @@ function onSearchResponse(response) {
     part: "id,snippet,statistics",
     id: video_ids.join(",")
   });
+  console.log("video_list:",video_ids.length);
+  //when No results found
+  if(video_ids.length == 0){
+    document.getElementById("list_result").innerHTML = render_no_result();
+  }
   //execute request_list
   request_list.execute(function(response) {
     //display errors
