@@ -61,6 +61,8 @@ function onSearchResponse(response) {
   });
   console.log("video_list:",video_ids.length);
   //when No results found
+  //show table
+  showElement('myTable');
   if(video_ids.length == 0){
     document.getElementById("list_result").innerHTML = render_no_result();
   }
