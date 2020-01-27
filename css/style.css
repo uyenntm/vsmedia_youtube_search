@@ -1,8 +1,10 @@
-.search{
-    margin: 2% 0;
+.search {
+  margin: 2% 0;
 }
-.error{
-    color: red;
-    margin: 2% 0;
+.error {
+  color: red;
+  margin: 2% 0;
 }
-
+div.search input[type="text"]:hover {
+  background: #f1f1f1;
+}
