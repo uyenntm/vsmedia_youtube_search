@@ -1,10 +1,10 @@
-function sortTable(VIDEOS,col, type="string") {
+function sortTable(videos,col, type="string") {
 
-   let sort_type = getTypeSort(VIDEOS,col);
-   VIDEOS.sort(compareValues(col,sort_type));
+   let sort_type = getTypeSort(videos,col);
+   videos.sort(compareValues(col,sort_type));
    //reset list result
    document.getElementById("list_result").innerHTML = '';
-  render_list(VIDEOS,document.getElementById("list_result"));
+  render_list(videos,document.getElementById("list_result"));
   }
 
   function getTypeSort(videos,col){

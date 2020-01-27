@@ -6,7 +6,7 @@ function render_list(videos, div){
         div.innerHTML +=render(video);
       });
 }
-//render result list
+//render one row
 function render(video){
     return '<tr>'+
     '<td>'+video['index']+'</td>'+
