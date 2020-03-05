@@ -5,7 +5,7 @@
 //CONSTANT VARIABLES
 const PART = "snippet";
 const MAX_RESULTS = 10;
-const API_KEY = "AIzaSyA3kt3hajtVT7PaBoIQczEyyM0WP0T1e4c";
+const API_KEY = "AIzaSyBgMuDTn83JFdpQ--s_LqoolXdebVeGnZg";
 let VIDEOS = [];
 //-------
 
