@@ -5,12 +5,15 @@
 //CONSTANT VARIABLES
 const PART = "snippet";
 const MAX_RESULTS = 10;
-const API_KEY = "AIzaSyBgMuDTn83JFdpQ--s_LqoolXdebVeGnZg";
+//const API_KEY = "AIzaSyBgMuDTn83JFdpQ--s_LqoolXdebVeGnZg";
+const API_KEY = "AIzaSyCtP1vbSr8gZKaa_OlTrE6stndc7LfDbpI";
+
 let VIDEOS = [];
 //-------
 
 function onClientLoad() {
   gapi.client.load("youtube", "v3", onYouTubeApiLoad);
+  
 }
 // Called automatically when YouTube API interface is loaded
 function onYouTubeApiLoad() {
@@ -19,8 +22,10 @@ function onYouTubeApiLoad() {
 
 // Called when the search button is clicked in the html code
 function search() {
+  // console.log("API_KEY: ",API_KEY);
+  
   var query = document.getElementById("query").value;
-
+  
   // Use the JavaScript client library to create a search.list() API call.
   var request = gapi.client.youtube.search.list({
     part: PART,
